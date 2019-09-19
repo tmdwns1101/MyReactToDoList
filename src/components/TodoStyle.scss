@@ -38,11 +38,25 @@
     font-size: 21px;
 }
 
+.task-left-container {
+    display: flex;
+    justify-content: space-between;
+}
+
 .task-left {
-    color: #12b886;
-    font-size: 18px;
+
+    font-size: 16px;
     margin-top: 40px;
     font-weight: bold;
+
+    &.left {
+        color: #12b886;
+    }
+
+    &.right {
+        color: #f76707;
+    }
+
 }
 
 .list-container {
@@ -74,6 +88,7 @@
     color: #dee2e6;
     font-size: 24px;
     cursor: pointer;
+    margin-left: 1rem;
 
     &:hover {
         color: #e03131;
@@ -88,6 +103,25 @@
     &.done {
         text-decoration: line-through;
         color: #ced4da;
+    }
+}
+
+.d-day {
+    position: relative;
+    left: 0;
+    color: white;
+    font-size: 10px;
+    text-align: center;
+    width: 40px;
+    border-radius: 16px;
+    padding: 1px;
+
+    &.warning {
+        background-color: #f03e3e;
+    }
+
+    &.safe {
+        background-color: #69db7c;
     }
 }
 
@@ -238,13 +272,16 @@
 }
 
 .todo-form {
+    display: flex;
+    flex-direction: column;
     background: #fff9db;
-    height: 95px;
+    height: 200px;
     padding: 32px;
     padding-bottom: 72px;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     border-top: 1px solid #e9ecdf;
+    justify-content: space-between;
 }
 
 .todo-input {
@@ -254,5 +291,61 @@
     width: 100%;
     outline: none;
     font-size: 18px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+
+}
+
+.btn-create-todo {
+
+    position: relative;
+    top: 1rem;
+    left: 78px;
+    width: 140px;
+    height: 50px;
+    border-radius: 16px;
+    border: 2px solid #3b5bdb;
+    overflow: hidden;
+    text-align: center;
+    background-color: white;
+    cursor: pointer;
+    box-sizing: border-box;
+
+
+    a {
+        font-family: arial;
+        font-size: 16px;
+        color: #3b5bdb;
+        text-decoration: none;
+        line-height: 50px;
+        transition: all .5s ease;
+        z-index: 2;
+        position: relative;
+    }
+
+    &:hover a {
+        color: white;
+    }
+
+    &:hover .btn-eff {
+
+        border: 70px solid #3b5bdb;
+
+    }
+
+
+
+}
+
+
+
+
+.btn-eff {
+    width: 140px;
+    height: 50px;
+    border: 0px solid #3b5bdb;
+    position: absolute;
+    transition: all .8s ease;
+    z-index: 1;
     box-sizing: border-box;
 }
