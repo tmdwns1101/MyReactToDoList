@@ -1,10 +1,7 @@
 import React from "react";
-import TodoTemplate from "../components/TodoTemplate";
-import TodoHead from "../components/TodoHead";
-import TodoList from "../components/TodoList";
-import TodoCreate from "../components/TodoCreate";
-import styled, { createGlobalStyle } from "styled-components";
 
+import styled, { createGlobalStyle } from "styled-components";
+import TodoListContainer from "../containers/TodoListContainer";
 const GlobalStyle = createGlobalStyle`
   body {
     background: #e9ecef;
@@ -21,11 +18,7 @@ function Home() {
     <>
       <GlobalStyle />
       <Wrapper>
-        <TodoTemplate>
-          <TodoHead />
-          <TodoList />
-        </TodoTemplate>
-        <TodoCreate />
+        <TodoListContainer />
       </Wrapper>
     </>
   );

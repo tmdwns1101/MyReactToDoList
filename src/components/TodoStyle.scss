@@ -64,8 +64,21 @@
     padding: 20px 32px;
     padding-bottom: 48px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
+@keyframes fadeOut {
+    from {
+        left: 0;
+        opacity: 1;
+    }
+
+    to {
+        left: -300px;
+        opacity: 0;
+    }
+
+}
 
 .todo-item {
     display: flex;
@@ -73,15 +86,14 @@
     padding-top: 12px;
     padding-bottom: 12px;
 
-    &:hover {
-        .remove {
-            opacity: 1;
-        }
+    &.delete {
+        animation: fadeOut 0.5s linear forwards;
     }
+
 }
 
 .remove {
-    opacity: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -90,7 +102,7 @@
     cursor: pointer;
     margin-left: 1rem;
 
-    &:hover {
+    &:active {
         color: #e03131;
     }
 }
@@ -281,7 +293,8 @@
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     border-top: 1px solid #e9ecdf;
-    justify-content: space-between;
+    justify-content: center space-between;
+    align-items: center;
 }
 
 .todo-input {
@@ -297,55 +310,32 @@
 }
 
 .btn-create-todo {
-
-    position: relative;
-    top: 1rem;
-    left: 78px;
+    margin-top: 10px;
+    padding: 1em;
     width: 140px;
     height: 50px;
     border-radius: 16px;
     border: 2px solid #3b5bdb;
-    overflow: hidden;
     text-align: center;
     background-color: white;
     cursor: pointer;
     box-sizing: border-box;
+    transition: 0.25s ease-in;
 
+    &:active {
+        background: #3b5bdb;
+
+        a {
+            color: white;
+        }
+    }
 
     a {
         font-family: arial;
         font-size: 16px;
         color: #3b5bdb;
         text-decoration: none;
-        line-height: 50px;
-        transition: all .5s ease;
-        z-index: 2;
-        position: relative;
-    }
-
-    &:hover a {
-        color: white;
-    }
-
-    &:hover .btn-eff {
-
-        border: 70px solid #3b5bdb;
 
     }
 
-
-
-}
-
-
-
-
-.btn-eff {
-    width: 140px;
-    height: 50px;
-    border: 0px solid #3b5bdb;
-    position: absolute;
-    transition: all .8s ease;
-    z-index: 1;
-    box-sizing: border-box;
 }
