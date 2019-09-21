@@ -19,7 +19,7 @@ function TodoList({ today, todoList, isAnimated, onDone, onDelete }) {
               today={todayDate}
               onDone={onDone}
               onDelete={onDelete}
-              isAnimated={isAnimated}
+              isAnimated={todo.isAnimated}
             />
           )
       )}

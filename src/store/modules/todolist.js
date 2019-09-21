@@ -57,7 +57,7 @@ export default handleActions(
     [DONE_CHECK]: (state, action) => ({
       ...state,
       todoList: state.todoList.map(elem =>
-        elem.id === action.payload ? !elem.done : elem
+        elem.id === action.payload ? { ...elem, done: !elem.done } : elem
       )
     }),
     [DELETE_CHECK]: (state, action) => ({
@@ -83,7 +83,9 @@ export default handleActions(
     [ISANIMATED]: (state, action) => ({
       ...state,
       todoList: state.todoList.map(elem =>
-        elem.id === action.payload ? !elem.isAnimated : elem
+        elem.id === action.payload
+          ? { ...elem, isAnimated: !elem.isAnimated }
+          : elem
       )
     })
   },

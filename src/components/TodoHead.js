@@ -5,7 +5,7 @@ function TodoHead({ today, todoList }) {
   const todayText = today.clone().format("YYYY년 MM월 DD일");
   const dayName = today.clone().format("dddd");
   const todayTaskLeft = todoList.filter(
-    elem => elem.done === false && elem.date === todayText
+    elem => elem.done === false && elem.date === today.format("YYYY-MM-DD")
   );
   const TotalTaskLeft = todoList.filter(elem => elem.done === false);
   return (

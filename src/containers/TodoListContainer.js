@@ -28,7 +28,7 @@ class TodoListContainer extends Component {
 
     const { TodoListActions } = this.props;
     TodoListActions.isAnimated(id);
-    setTimeout(() => TodoListActions.deleteCheck(id), 1000);
+    setTimeout(() => TodoListActions.deleteCheck(id), 500);
   };
 
   handleOnCreate = () => {
@@ -48,9 +48,17 @@ class TodoListContainer extends Component {
       TodoListActions.dateChange(today.format("YYYY-MM-DD"));
     }
   };
+  handleOnSubmit = () => {
+    const { TodoListActions, text, date } = this.props;
+    TodoListActions.create({
+      text: text,
+      date: date
+    });
+    TodoListActions.inputChange("");
+  };
 
   render() {
-    const { today, text, todoList, open, isAnimated } = this.props;
+    const { today, text, todoList, open } = this.props;
     console.log(todoList);
     return (
       <>
@@ -59,7 +67,6 @@ class TodoListContainer extends Component {
           <TodoList
             todoList={todoList}
             today={today}
-            isAnimated={isAnimated}
             onDone={this.handleOnToggleDone}
             onDelete={this.handleOnClickDelete}
           />
@@ -71,6 +78,7 @@ class TodoListContainer extends Component {
           onToggle={this.handleOnToggle}
           onChange={this.handleOnChangeInput}
           onChangeDate={this.handleOnChangeDate}
+          onSubmit={this.handleOnSubmit}
         />
       </>
     );
@@ -82,8 +90,7 @@ const mapStateToProps = ({ todolist }) => ({
   text: todolist.text,
   date: todolist.date,
   todoList: todolist.todoList,
-  open: todolist.open,
-  isAnimated: todolist.isAnimated
+  open: todolist.open
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -22,6 +22,7 @@ function TodoItem({
   const color = remain_day > 5 ? "safe" : "warning";
   const del = isAnimated ? "delete" : "";
   console.log(remain_day);
+  console.log(`애니메이션 중 ${isAnimated}`);
   return (
     <div className={`todo-item ${del}`}>
       <div onClick={() => onDone(id)} className={`check-circle ${selected}`}>

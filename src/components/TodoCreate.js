@@ -3,7 +3,15 @@ import { MdAdd } from "react-icons/md";
 import { DatePicker } from "antd";
 import "./TodoStyle.scss";
 import moment from "moment";
-function TodoCreate({ input, open, today, onToggle, onChange, onChangeDate }) {
+function TodoCreate({
+  input,
+  open,
+  today,
+  onToggle,
+  onChange,
+  onChangeDate,
+  onSubmit
+}) {
   const todayDate = today.format("YYYY-MM-DD");
 
   const isopen = open ? "open" : "";
@@ -32,7 +40,7 @@ function TodoCreate({ input, open, today, onToggle, onChange, onChangeDate }) {
             size={"large"}
             onChange={onChangeDate}
           />
-          <div className="btn-create-todo">
+          <div className="btn-create-todo" onClick={onSubmit}>
             <a href="#">Create!</a>
           </div>
         </div>
