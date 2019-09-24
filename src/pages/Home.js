@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
 
 const Wrapper = styled.div`
   margin: 0 auto;
-  height: 640px;
+  height: 100vh;
   overflow-y: hidden;
 `;
 function Home() {

@@ -3,8 +3,8 @@ import "./TodoStyle.scss";
 import TodoItem from "./TodoItem";
 import moment from "moment";
 function TodoList({ today, todoList, isAnimated, onDone, onDelete }) {
-  const todayDate = today.format("YYYY-MM-DD").split("-");
-  console.log(todayDate);
+  //const todayDate = today.format("YYYY-MM-DD").split("-");
+  //console.log(todayDate);
   return (
     <div className="list-container">
       {todoList.map(
@@ -16,7 +16,7 @@ function TodoList({ today, todoList, isAnimated, onDone, onDelete }) {
               done={todo.done}
               text={todo.text}
               date={todo.date}
-              today={todayDate}
+              today={today}
               onDone={onDone}
               onDelete={onDelete}
               isAnimated={todo.isAnimated}

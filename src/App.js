@@ -1,10 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 import { Home } from "./pages/index";
 import "antd/dist/antd.css";
-import { Route } from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
+import Login from "./components/Login";
 
-function App() {
-  return <Route path="/" exact component={Home} />;
+class App extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Route path="/" exact component={Home} />
+        <Route path="/login" component={Login} />
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
