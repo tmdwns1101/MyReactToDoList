@@ -21,7 +21,12 @@ export const registUser = id => {
 
 export const getTodoList = id => {
   //console.log(database);
-  return database.ref(`todolist/${id}/items`).once("value");
+  try {
+    const ref = database.ref(`todolist/${id}/items`).once("value");
+    return ref;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 export const createTodo = (id, text, date) => {
@@ -32,4 +37,14 @@ export const createTodo = (id, text, date) => {
     deleted: false,
     isAnimated: false
   });
+};
+
+export const doneTodo = (userID, id, done) => {
+  database.ref(`/todolist/${userID}/items/${id}`).update({
+    done: !done
+  });
+};
+
+export const deleteTodo = (userID, id) => {
+  database.ref(`/todolist/${userID}/items/${id}`).remove();
 };

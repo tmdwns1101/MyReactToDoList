@@ -26,7 +26,10 @@ function TodoItem({
   console.log(`애니메이션 중 ${isAnimated}`);
   return (
     <div className={`todo-item ${del}`}>
-      <div onClick={() => onDone(id)} className={`check-circle ${selected}`}>
+      <div
+        onClick={() => onDone(id, done)}
+        className={`check-circle ${selected}`}
+      >
         {done && <MdDone />}
       </div>
       <div className={`text ${selected}  ${sel}`}>{text}</div>
