@@ -11,12 +11,19 @@ export const fireInit = () => {
   //console.log(database);
 };
 
-export const getUserInfo = id => {
-  return database.ref(`users/${id}/`).once("value");
+export const getUserInfo = email => {
+  return database
+    .ref("users/")
+    .orderByChild("email")
+    .equalTo(`${email}`)
+    .once("value");
 };
 
-export const registUser = id => {
-  return database.ref("users/").push(id);
+export const registUser = ({ email, name }) => {
+  return database.ref("users/").push({
+    email: email,
+    name: name
+  });
 };
 
 export const getTodoList = id => {

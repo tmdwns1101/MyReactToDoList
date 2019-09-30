@@ -14,10 +14,11 @@ import {
   deleteTodo
 } from "../shared/Fireabase";
 import { Spin } from "antd";
+import { Redirect } from "react-router-dom";
 
 class TodoListContainer extends Component {
   getData = async () => {
-    const { TodoListActions } = this.props;
+    const { TodoListActions, userID } = this.props;
 
     /*getTodoList(1).then(res => {
       console.log(res.val());
@@ -35,7 +36,7 @@ class TodoListContainer extends Component {
       });
       console.log(list);
     });*/
-    const res = await getTodoList(1);
+    const res = await getTodoList(userID);
 
     const list = [];
     res.forEach(element => {
@@ -55,7 +56,8 @@ class TodoListContainer extends Component {
   };
   componentDidMount() {
     fireInit();
-    this.getData();
+    const { logged } = this.props;
+    logged && this.getData();
   }
   handleOnChangeInput = e => {
     const { TodoListActions } = this.props;
@@ -68,16 +70,16 @@ class TodoListContainer extends Component {
   };
 
   handleOnToggleDone = (id, done) => {
-    const { TodoListActions } = this.props;
-    doneTodo(1, id, done);
+    const { TodoListActions, userID } = this.props;
+    doneTodo(userID, id, done);
     TodoListActions.doneCheck(id);
   };
 
   handleOnClickDelete = id => {
     console.log("delete!");
 
-    const { TodoListActions } = this.props;
-    deleteTodo(1, id);
+    const { TodoListActions, userID } = this.props;
+    deleteTodo(userID, id);
     TodoListActions.isAnimated(id);
 
     setTimeout(() => TodoListActions.deleteCheck(id), 500);
@@ -102,19 +104,19 @@ class TodoListContainer extends Component {
     }
   };
   handleOnSubmit = () => {
-    const { TodoListActions, text, date } = this.props;
+    const { TodoListActions, text, date, userID } = this.props;
     /*TodoListActions.create({
       text: text,
       date: date
     });*/
     TodoListActions.inputChange("");
-    createTodo(1, text, date);
+    createTodo(userID, text, date);
     TodoListActions.isLoading(true);
-    this.getData(1);
+    this.getData(userID);
   };
 
   render() {
-    const { today, text, todoList, open, isLoading } = this.props;
+    const { today, text, todoList, open, isLoading, logged } = this.props;
     console.log(todoList);
     const cloneList = todoList;
     if (cloneList.length > 0) {
@@ -129,37 +131,42 @@ class TodoListContainer extends Component {
       });
     }
     return (
-      <Spin tip="Loading..." spinning={isLoading}>
-        <TodoTemplate>
-          <TodoHead today={today} todoList={todoList} />
-          <TodoList
-            todoList={cloneList}
+      <>
+        {!logged && <Redirect to="/login" />}
+        <Spin tip="Loading..." spinning={isLoading}>
+          <TodoTemplate>
+            <TodoHead today={today} todoList={todoList} />
+            <TodoList
+              todoList={cloneList}
+              today={today}
+              onDone={this.handleOnToggleDone}
+              onDelete={this.handleOnClickDelete}
+            />
+          </TodoTemplate>
+          <TodoCreate
             today={today}
-            onDone={this.handleOnToggleDone}
-            onDelete={this.handleOnClickDelete}
+            input={text}
+            open={open}
+            onToggle={this.handleOnToggle}
+            onChange={this.handleOnChangeInput}
+            onChangeDate={this.handleOnChangeDate}
+            onSubmit={this.handleOnSubmit}
           />
-        </TodoTemplate>
-        <TodoCreate
-          today={today}
-          input={text}
-          open={open}
-          onToggle={this.handleOnToggle}
-          onChange={this.handleOnChangeInput}
-          onChangeDate={this.handleOnChangeDate}
-          onSubmit={this.handleOnSubmit}
-        />
-      </Spin>
+        </Spin>
+      </>
     );
   }
 }
 
-const mapStateToProps = ({ todolist }) => ({
+const mapStateToProps = ({ todolist, login }) => ({
   today: todolist.today,
   text: todolist.text,
   date: todolist.date,
   todoList: todolist.todoList,
   open: todolist.open,
-  isLoading: todolist.isLoading
+  isLoading: todolist.isLoading,
+  logged: login.logged,
+  userID: login.userID
 });
 
 const mapDispatchToProps = dispatch => ({
